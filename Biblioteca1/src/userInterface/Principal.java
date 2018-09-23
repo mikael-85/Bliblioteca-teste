@@ -17,16 +17,15 @@ public class Principal {
 		
 		while(opcao != 0) {
 			//opcao = -1;
-			System.out.println(" opcao 1: "+opcao); // testar
 			System.out.println("1 - cadastro de livros: ");
 			System.out.println("2 - cadastro de usuarios: ");
 			System.out.println("3 - emprestimos: ");
 			System.out.println("4 - reserva: ");
-			System.out.println("5 - multa ");
-			System.out.println("0 - sair ");
+			System.out.println("5 - multa: ");
+			System.out.println("6 - Alterar Data: ");
+			System.out.println("0 - sair: ");
 			opcao = Integer.parseInt(entrada.nextLine());
-			System.out.println(" opcao 1: "+opcao); // testar			
-			
+						
 			switch (opcao) {
 			case 1:	
 				opcao2 = -1;
@@ -126,7 +125,7 @@ public class Principal {
 					System.out.println("2 - renovar emprestimo ");
 					System.out.println("3 - devolver livro ");
 					System.out.println("4 - listar emprestimos ");
-					System.out.println("5 - buscar emprestimo por usuario e livro");
+					System.out.println("5 - buscar emprestimo por usuario");
 					System.out.println("6 - buscar emprestimo por Isbn ");
 					System.out.println("7 - buscar emprestimo por titulo ");
 					System.out.println("0 - voltar");
@@ -134,24 +133,31 @@ public class Principal {
 					
 					switch (opcao2) {
 						case 1:
+							objetoOpcoesEmprestimo.cadastrarEmprestimo();
 							break;
 	
 						case 2:
+							objetoOpcoesEmprestimo.renovarEmprestimo();
 							break;
 	
 						case 3:
+							//objetoOpcoesEmprestimo.devolverLivro();  < - falta
 							break;
 	
 						case 4:
+							objetoOpcoesEmprestimo.listarEmprestimo();
 							break;
 	
 						case 5:
+							objetoOpcoesEmprestimo.buscarEmprestimoUsuario();
 							break;
 	
 						case 6:
+							objetoOpcoesEmprestimo.buscarEmprestimoIsbn();
 							break;
 	
 						case 7:
+							objetoOpcoesEmprestimo.buscarEmprestimoTitulo();
 							break;
 	
 						default:
@@ -210,7 +216,9 @@ public class Principal {
 					}
 				}
 			break;
-
+			case 6:
+				objetoOpcoesEmprestimo.setDataAtual();
+				break;
 			default: //Quando nao escolhido nenhum case volta a opcao padrao 
 				//break;
 			} 

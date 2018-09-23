@@ -20,5 +20,29 @@ public class EmprestimoDAO {
 			}
 		}
 		return emprestimoUsuarioTemp;
+	}
+	
+	public Collection<EmprestimoModelo> listarEmprestimos(){
+		return this.listaEmprestimo;
+	}
+	
+	public EmprestimoModelo buscarEmprestimoIsbn(long isbn) {
+		EmprestimoModelo resultadoBusca = null;
+		for(EmprestimoModelo emprestimoAtual: listaEmprestimo) {
+			if(emprestimoAtual.getIsbn() == isbn) {
+				resultadoBusca = emprestimoAtual;
+			}
+		}
+		return resultadoBusca;
+	}
+	
+	public void excluir(long isbn) {
+		for (EmprestimoModelo emprestimoAtual : listaEmprestimo) {
+			if(emprestimoAtual.getIsbn() == isbn) {
+				listaEmprestimo.remove(emprestimoAtual);
+				break;
+			}
+		}
 	}	
+	
 }

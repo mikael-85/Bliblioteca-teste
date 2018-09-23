@@ -15,6 +15,13 @@ public class OpcoesUsuario {
 		return this.objetoUsuarioNegocio;
 	}
 	
+	public OpcoesUsuario() {//teste de novos usuarios 
+		UsuarioModelo novoUsuario1 = new UsuarioModelo("Carlos", "123eu", 1, 0);
+		UsuarioModelo novoUsuario2 = new UsuarioModelo("Anna", "123ana", 2, 0);
+		this.objetoUsuarioNegocio.incluir(novoUsuario1);
+		this.objetoUsuarioNegocio.incluir(novoUsuario2);
+	}
+	
 	public void incluirUsuario() {
 		//UsuarioNegocio objetoUsuarioNegocio = new UsuarioNegocio();
 		UsuarioModelo usuarioNovo = new UsuarioModelo();

@@ -1,12 +1,12 @@
 package modelo;
 
-import java.util.Date;
+import java.util.Calendar;;
 
 public class EmprestimoModelo {
 	private long isbn;
 	private String login;
-	private Date dataEmprestimo;
-	private Date dataDevolucao;
+	private Calendar dataEmprestimo;
+	private Calendar dataDevolucao;
 	
 	public long getIsbn() {
 		return isbn;
@@ -25,19 +25,19 @@ public class EmprestimoModelo {
 		this.login = login;
 	}
 	
-	public Date getDataEmprestimo() {
+	public Calendar getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 	
-	public void setDataEmprestimo(Date dataEmprestimo) {
+	public void setDataEmprestimo(Calendar dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 	
-	public Date getDataDevolucao() {
+	public Calendar getDataDevolucao() {
 		return dataDevolucao;
 	}
 	
-	public void setDataDevolucao(Date dataDevolucao) {
+	public void setDataDevolucao(Calendar dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
 	}
 }
