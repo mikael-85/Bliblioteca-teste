@@ -1,7 +1,9 @@
 package userInterface;
 
+import java.util.Collection;
 import java.util.Scanner;
 
+import modelo.EmprestimoModelo;
 import modelo.LivroModelo;
 import modelo.ReservaModelo;
 import modelo.UsuarioModelo;
@@ -47,7 +49,8 @@ public class OpcoesEmprestimo {
 					//Verifica se tem multa:
 					if(objetoUsuarioModelo.getMulta() == 0) {
 						//verificar se o usuario ja tem emprestimo(s) (falta fazer!)
-						
+						Collection<EmprestimoModelo> emprestimoUsuarioTemp =  this.objetoEmprestimoNegocio.buscarEmprestimoUsuario(loginUsuarioPesquisa);
+						int numeroEmprestimosUsuario = emprestimoUsuarioTemp.size();
 						//verificar o tipo de usuario
 						if(objetoUsuarioModelo.getTipo() == 1) {
 							//aluno pode retirar 3 livros por 7 dias
@@ -85,7 +88,9 @@ public class OpcoesEmprestimo {
 	
 	public void buscarEmprestimoTitulo(){}
 	
-	public void buscarEmprestimoUsuario(){}// pelo login! 
+	public void buscarEmprestimoUsuario(){
+		
+	}// pelo login! 
 	
 	// FALTA FAZER FUNCAO DE ATUALIZACAO 'AUTOMATICA' DA MULTA!!!
 	
