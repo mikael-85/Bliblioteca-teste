@@ -128,8 +128,8 @@ public class OpcoesUsuario {
 			System.out.println("O usuario de nome: "+usuarioEncontrado.getNome()+", e login: "+usuarioEncontrado.getLogin()+
 					", com a multa: " +usuarioEncontrado.getMulta()+", foi alterado com sucesso!");
 			//usuarioEncontrado.setMulta(2);
-			System.out.println("O usuario de nome: "+usuarioEncontrado.getNome()+", e login: "+usuarioEncontrado.getLogin()+
-					 ", teve a multa alterada para: " +usuarioEncontrado.getMulta()+ ", foi alterado com sucesso!");
+			//System.out.println("O usuario de nome: "+usuarioEncontrado.getNome()+", e login: "+usuarioEncontrado.getLogin()+
+				//	 ", teve a multa alterada para: " +usuarioEncontrado.getMulta()+ ", foi alterado com sucesso!");
 		}
 		else {
 			System.out.println("Usuario não encontrado! ");

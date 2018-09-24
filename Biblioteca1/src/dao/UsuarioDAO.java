@@ -61,4 +61,18 @@ public class UsuarioDAO {
 		}
 		return usuarioZeraMulta;
 	}
+	
+	public void alteraMulta(String login, double multa) {
+		for(UsuarioModelo usuarioAtual : listaUsuarios) {
+			if(usuarioAtual.getLogin().compareTo(login) == 0) {
+				//le a multa atual
+				double multaTemp = usuarioAtual.getMulta();
+				multaTemp += multa;
+				System.out.println("Multa Total do usuario: "+ multaTemp);
+				//set nova multa
+				usuarioAtual.setMulta(multaTemp);
+				break;
+			}
+		}
+	}
 }

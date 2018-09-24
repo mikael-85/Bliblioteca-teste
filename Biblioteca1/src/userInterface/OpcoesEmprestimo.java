@@ -67,7 +67,7 @@ public class OpcoesEmprestimo {
 								this.objetoEmprestimoNegocio.cadastraEmprestimo(novoEmprestimo); 
 								System.out.println("Livro emprestado com sucesso, data de devolucao: "+ 
 										novoEmprestimo.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-				                        novoEmprestimo.getDataDevolucao().get(Calendar.MONTH) + "/" +
+				                        (novoEmprestimo.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 				                        novoEmprestimo.getDataDevolucao().get(Calendar.YEAR)
 								);
 							}
@@ -83,7 +83,7 @@ public class OpcoesEmprestimo {
 								this.objetoEmprestimoNegocio.cadastraEmprestimo(novoEmprestimo);
 								System.out.println("Livro emprestado com sucesso, data de devolucao: "+ 
 										novoEmprestimo.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-				                        novoEmprestimo.getDataDevolucao().get(Calendar.MONTH) + "/" +
+				                        (novoEmprestimo.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 				                        novoEmprestimo.getDataDevolucao().get(Calendar.YEAR)
 								);
 							}
@@ -113,7 +113,7 @@ public class OpcoesEmprestimo {
 							this.objetoEmprestimoNegocio.cadastraEmprestimo(novoEmprestimo);
 							System.out.println("Livro emprestado com sucesso, data de devolucao: "+ 
 									novoEmprestimo.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-			                        novoEmprestimo.getDataDevolucao().get(Calendar.MONTH) + "/" +
+			                        (novoEmprestimo.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 			                        novoEmprestimo.getDataDevolucao().get(Calendar.YEAR)
 							);
 						}
@@ -187,7 +187,7 @@ public class OpcoesEmprestimo {
 						this.objetoEmprestimoNegocio.cadastraEmprestimo(novoEmprestimo); 
 						System.out.println("Livro emprestado com sucesso, data de devolucao: "+ 
 								novoEmprestimo.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-		                        novoEmprestimo.getDataDevolucao().get(Calendar.MONTH) + "/" +
+		                        (novoEmprestimo.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 		                        novoEmprestimo.getDataDevolucao().get(Calendar.YEAR)
 						);
 					}
@@ -210,7 +210,7 @@ public class OpcoesEmprestimo {
 							this.objetoEmprestimoNegocio.cadastraEmprestimo(novoEmprestimo);
 							System.out.println("Livro emprestado com sucesso, data de devolucao: "+ 
 									novoEmprestimo.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-			                        novoEmprestimo.getDataDevolucao().get(Calendar.MONTH) + "/" +
+			                        (novoEmprestimo.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 			                        novoEmprestimo.getDataDevolucao().get(Calendar.YEAR)
 							);
 						}
@@ -228,7 +228,38 @@ public class OpcoesEmprestimo {
 		}
 	}
 	
-	public void devolverLivro(){} // devolver livro falta
+	public void verificaCadastraMulta(EmprestimoModelo emprestimoPesquisaIsbn) {
+
+		int diaAtualDoAno = dataAtual.get(Calendar.DAY_OF_YEAR);
+		//data de entrega em int, max 365
+		int diaEntregaDoAno = emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.DAY_OF_YEAR);
+		if(diaAtualDoAno > diaEntregaDoAno) {
+			int multaTemp = diaAtualDoAno - diaEntregaDoAno;
+            double multa = (double)multaTemp;
+			//double multa = (double)(diaEntregaDoAno - diaEntregaDoAno);
+			System.out.println("Multa do livro entregue: "+ multa);
+			//Chamada para atualizar o campo de multa do usuario 
+			this.objetoUsuarioNegocio.alteraMulta(emprestimoPesquisaIsbn.getLogin(), multa);
+			//diaEntragaDoAno  - diaAtualDoAno
+		}
+	
+	}
+	
+	public void devolverLivro(){
+		long isbnPesquisa;
+		System.out.println("Digite o Isbn do livro que deseja devolver");
+		isbnPesquisa = Long.parseLong(entrada.nextLine());
+		EmprestimoModelo emprestimoPesquisaIsbn = this.objetoEmprestimoNegocio.buscarEmprestimoIsbn(isbnPesquisa);
+		if(emprestimoPesquisaIsbn == null) {
+			System.out.println("Emprestimo nao encontrado...");
+		}
+		else {
+			verificaCadastraMulta(emprestimoPesquisaIsbn);
+			this.objetoEmprestimoNegocio.excluirEmprestimo(isbnPesquisa);
+			System.out.println("Emprestimo devolvido!");
+		}
+		
+	} 
 	
 	public void listarEmprestimo(){
 		Collection<EmprestimoModelo> todosOsEmprestimos = this.objetoEmprestimoNegocio.listarEmprestimos();
@@ -240,11 +271,11 @@ public class OpcoesEmprestimo {
 				System.out.println("Isbn: "+emprestimoAtual.getIsbn() + ", Login:"+emprestimoAtual.getLogin()+
 						", Data do Emprestimo:"+
 						emprestimoAtual.getDataEmprestimo().get(Calendar.DAY_OF_MONTH) + "/" +
-                        emprestimoAtual.getDataEmprestimo().get(Calendar.MONTH) + "/" +
+                        (emprestimoAtual.getDataEmprestimo().get(Calendar.MONTH)+1) + "/" +
                         emprestimoAtual.getDataEmprestimo().get(Calendar.YEAR) +
                         ", Data de Devolucao: "+
                         emprestimoAtual.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-                        emprestimoAtual.getDataDevolucao().get(Calendar.MONTH) + "/" +
+                        (emprestimoAtual.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
                         emprestimoAtual.getDataDevolucao().get(Calendar.YEAR)
                );
 			}
@@ -254,17 +285,18 @@ public class OpcoesEmprestimo {
 	public void setDataAtual() {
 		System.out.println("Digite a data atual (dd/mm/aaaa):");
 		String dataTemp = entrada.nextLine();
-		char[] dataTempC = dataTemp.toCharArray(); 
-		dataTempC[4] = (char)((int)dataTempC[4]+1);
-		//dataTemp = Arrays.toString(dataTempC);
-		dataTemp =String.valueOf(dataTempC);
+		//char[] dataTempC = dataTemp.toCharArray(); 
+		//dataTempC[4] = (char)((int)dataTempC[4]+1);
+		//dataTemp =String.valueOf(dataTempC);
+		
 		//System.out.println(dataTemp);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			this.dataAtual.setTime(sdf.parse(dataTemp));
 			System.out.println("Data alterada para:"+
 					this.dataAtual.get(Calendar.DAY_OF_MONTH) + "/" +
-                    this.dataAtual.get(Calendar.MONTH) + "/" +
+                    
+					(this.dataAtual.get(Calendar.MONTH)+1) + "/" +
                     this.dataAtual.get(Calendar.YEAR)
             );
 		} catch (ParseException ex) {
@@ -283,11 +315,11 @@ public class OpcoesEmprestimo {
 			System.out.println("Isbn: "+emprestimoPesquisaIsbn.getIsbn() + ", Login:"+emprestimoPesquisaIsbn.getLogin()+
 					", Data do Emprestimo:"+
 					emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.DAY_OF_MONTH) + "/" +
-					emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.MONTH) + "/" +
+					(emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.MONTH)+1) + "/" +
 					emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.YEAR) +
                     ", Data de Devolucao: "+
                     emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-                    emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.MONTH) + "/" +
+                    (emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.MONTH)+1)+ "/" +
                     emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.YEAR)
            );
 		}
@@ -318,11 +350,11 @@ public class OpcoesEmprestimo {
 				System.out.println("Isbn: "+emprestimoPesquisaIsbn.getIsbn() + ", Login:"+emprestimoPesquisaIsbn.getLogin()+
 						", Data do Emprestimo:"+
 						emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.DAY_OF_MONTH) + "/" +
-						emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.MONTH) + "/" +
+						(emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.MONTH)+1) + "/" +
 						emprestimoPesquisaIsbn.getDataEmprestimo().get(Calendar.YEAR) +
 	                    ", Data de Devolucao: "+
 	                    emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-	                    emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.MONTH) + "/" +
+	                    (emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 	                    emprestimoPesquisaIsbn.getDataDevolucao().get(Calendar.YEAR)
 	           );
 			}
@@ -341,11 +373,11 @@ public class OpcoesEmprestimo {
 				System.out.println("Isbn: "+emprestimoAtual.getIsbn() + ", Login:"+emprestimoAtual.getLogin()+
 						", Data do Emprestimo:"+
 						emprestimoAtual.getDataEmprestimo().get(Calendar.DAY_OF_MONTH) + "/" +
-						emprestimoAtual.getDataEmprestimo().get(Calendar.MONTH) + "/" +
+						(emprestimoAtual.getDataEmprestimo().get(Calendar.MONTH)+1) + "/" +
 						emprestimoAtual.getDataEmprestimo().get(Calendar.YEAR) +
 						", Data de Devolucao: "+
 						emprestimoAtual.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + "/" +
-						emprestimoAtual.getDataDevolucao().get(Calendar.MONTH) + "/" +
+						(emprestimoAtual.getDataDevolucao().get(Calendar.MONTH)+1) + "/" +
 						emprestimoAtual.getDataDevolucao().get(Calendar.YEAR)
 				);
 			}

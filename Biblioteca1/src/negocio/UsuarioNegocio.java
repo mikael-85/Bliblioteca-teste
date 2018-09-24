@@ -40,6 +40,16 @@ public class UsuarioNegocio {
 		return this.chamadaUsuarioDAO.zeraMulta(login);
 	}
 	
+	public void alteraMulta(String login, double multa) {
+		this.chamadaUsuarioDAO.alteraMulta(login, multa);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/*public int verificaTipoString(int tipoUsuario) {
 		if(tipoUsuario == 1) {

@@ -141,7 +141,7 @@ public class Principal {
 							break;
 	
 						case 3:
-							//objetoOpcoesEmprestimo.devolverLivro();  < - falta
+							objetoOpcoesEmprestimo.devolverLivro();
 							break;
 	
 						case 4:
